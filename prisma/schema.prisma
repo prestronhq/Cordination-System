@@ -1,0 +1,48 @@
+// This is your Prisma schema file
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Sector {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String
+  icon        String
+  isActive    Boolean  @default(true)
+  fieldSchema String   // JSON string describing sector-specific fields
+  createdAt   DateTime @default(now())
+
+  updates     Update[]
+}
+
+model Update {
+  id           String    @id @default(cuid())
+  sectorId     String
+  title        String
+  description  String
+  location     String
+  priority     String    @default("medium") // low | medium | high
+  status       String    @default("pending") // pending | approved | rejected | needs_correction
+  sectorFields String    @default("{}") // JSON blob
+  attachments  String    @default("[]") // JSON array of filenames
+
+  submittedById String
+  submittedAt   DateTime  @default(now())
+
+  reviewedById  String?
+  reviewedAt    DateTime?
+  reviewComment String?
+  publishedAt   DateTime?
+
+  sector Sector @relation(fields: [sectorId], references: [id])
+
+  @@index([sectorId])
+  @@index([status])
+  @@index([submittedAt])
+}
