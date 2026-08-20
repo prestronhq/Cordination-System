@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { FileDown, FileSpreadsheet } from "lucide-react";
+import { FileDownload, FileSpreadsheet } from "@/lib/icons";
 
 interface SectorStat {
   sectorKey: string;
@@ -118,7 +118,7 @@ export function ReportExporter({ period, label, sectorStats, totals }: Props) {
   return (
     <div className="flex gap-2">
       <Button variant="outline" onClick={exportPDF} className="gap-1.5">
-        <FileDown className="w-4 h-4" />
+        <FileDownload className="w-4 h-4" />
         Export PDF
       </Button>
       <Button variant="outline" onClick={exportExcel} className="gap-1.5">

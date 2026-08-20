@@ -18,7 +18,7 @@ export const ACTIVE_SECTORS: SectorConfig[] = [
   {
     key: "electricity",
     name: "Electricity",
-    icon: "⚡",
+    icon: "Zap",
     isActive: true,
     fields: [
       {
@@ -46,7 +46,7 @@ export const ACTIVE_SECTORS: SectorConfig[] = [
   {
     key: "roads",
     name: "Roads",
-    icon: "🛣️",
+    icon: "Route",
     isActive: true,
     fields: [
       {
@@ -74,7 +74,7 @@ export const ACTIVE_SECTORS: SectorConfig[] = [
   {
     key: "water",
     name: "Water",
-    icon: "💧",
+    icon: "Droplets",
     isActive: true,
     fields: [
       {
@@ -101,7 +101,7 @@ export const ACTIVE_SECTORS: SectorConfig[] = [
   {
     key: "health",
     name: "Health",
-    icon: "🏥",
+    icon: "HeartPulse",
     isActive: true,
     fields: [
       {
@@ -140,7 +140,7 @@ export const ACTIVE_SECTORS: SectorConfig[] = [
   {
     key: "education",
     name: "Education",
-    icon: "🎓",
+    icon: "GraduationCap",
     isActive: true,
     fields: [
       {
@@ -162,7 +162,7 @@ export const ACTIVE_SECTORS: SectorConfig[] = [
   {
     key: "land",
     name: "Land",
-    icon: "🗺️",
+    icon: "Mountain",
     isActive: true,
     fields: [
       {

@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ACTIVE_SECTORS, getSectorConfig } from "@/lib/sectors";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft, Send } from "@/lib/icons";
 import Link from "next/link";
 
 export default function SubmitUpdatePage({
@@ -37,7 +37,7 @@ export default function SubmitUpdatePage({
   const [error, setError] = useState("");
 
   if (!sectorConfig) {
-    return <div className="p-8 text-center text-gray-500">Unknown sector.</div>;
+    return <div className="p-8 text-center text-text-muted">Unknown sector.</div>;
   }
 
   function handleChange(key: string, value: string) {
@@ -81,7 +81,7 @@ export default function SubmitUpdatePage({
       <div className="mb-6">
         <Link
           href={`/officer/${sector}`}
-          className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-3"
+          className="flex items-center gap-1 text-sm text-text-muted hover:text-text-strong mb-3"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to my updates
@@ -89,8 +89,8 @@ export default function SubmitUpdatePage({
         <div className="flex items-center gap-2">
           <span className="text-2xl">{sectorConfig.icon}</span>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Submit New Update</h1>
-            <p className="text-gray-500 text-sm">{sectorConfig.name} Sector</p>
+            <h1 className="text-2xl font-bold text-text-strong">Submit New Update</h1>
+            <p className="text-text-muted text-sm">{sectorConfig.name} Sector</p>
           </div>
         </div>
       </div>
@@ -221,15 +221,15 @@ export default function SubmitUpdatePage({
                     <SelectItem value="high">High</SelectItem>
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-text-muted mt-2">
                   Set High for urgent issues requiring immediate attention.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-blue-50 border-blue-200">
+            <Card className="bg-primary-50 border-primary-200">
               <CardContent className="p-4">
-                <p className="text-xs text-blue-800 leading-relaxed">
+                <p className="text-xs text-primary-800 leading-relaxed">
                   <strong>Attachments:</strong> Document uploads are not yet available in this version. 
                   Reference supporting documents in your description.
                 </p>
@@ -237,7 +237,7 @@ export default function SubmitUpdatePage({
             </Card>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-md px-3 py-2">
+              <div className="bg-error-50 border border-error-200 text-error-700 text-sm rounded-md px-3 py-2">
                 {error}
               </div>
             )}

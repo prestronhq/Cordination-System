@@ -20,7 +20,7 @@ export default async function OfficerLayout({
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-surface-1">
       <OfficerNav user={user} />
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6">
         {children}

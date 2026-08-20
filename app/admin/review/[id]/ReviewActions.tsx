@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, XCircle, AlertTriangle, Loader2 } from "lucide-react";
+import { CheckCircle, XCircle, ExclamationTriangle, ArrowPath } from "@/lib/icons";
 
 export function ReviewActions({ updateId }: { updateId: string }) {
   const router = useRouter();
@@ -55,8 +55,8 @@ export function ReviewActions({ updateId }: { updateId: string }) {
             onClick={() => setAction("approve")}
             className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all ${
               action === "approve"
-                ? "border-green-500 bg-green-50 text-green-800"
-                : "border-gray-200 hover:border-green-300 text-gray-700"
+                ? "border-green-500 bg-secondary-50 text-secondary-800"
+                : "border-border-default hover:border-green-300 text-text-default"
             }`}
           >
             <CheckCircle className="w-4 h-4 text-green-600" />
@@ -68,10 +68,10 @@ export function ReviewActions({ updateId }: { updateId: string }) {
             className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all ${
               action === "needs_correction"
                 ? "border-amber-500 bg-amber-50 text-amber-800"
-                : "border-gray-200 hover:border-amber-300 text-gray-700"
+                : "border-border-default hover:border-amber-300 text-text-default"
             }`}
           >
-            <AlertTriangle className="w-4 h-4 text-amber-600" />
+            <ExclamationTriangle className="w-4 h-4 text-amber-600" />
             Request Correction
           </button>
           <button
@@ -79,8 +79,8 @@ export function ReviewActions({ updateId }: { updateId: string }) {
             onClick={() => setAction("reject")}
             className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all ${
               action === "reject"
-                ? "border-red-500 bg-red-50 text-red-800"
-                : "border-gray-200 hover:border-red-300 text-gray-700"
+                ? "border-red-500 bg-error-50 text-error-800"
+                : "border-border-default hover:border-red-300 text-text-default"
             }`}
           >
             <XCircle className="w-4 h-4 text-red-600" />
@@ -111,7 +111,7 @@ export function ReviewActions({ updateId }: { updateId: string }) {
         )}
 
         {error && (
-          <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
+          <p className="text-sm text-red-600 bg-error-50 border border-error-200 rounded px-3 py-2">
             {error}
           </p>
         )}
@@ -129,7 +129,7 @@ export function ReviewActions({ updateId }: { updateId: string }) {
           }
         >
           {loading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <ArrowPath className="w-4 h-4 animate-spin" />
           ) : action === "approve" ? (
             "Approve & Publish"
           ) : action === "needs_correction" ? (

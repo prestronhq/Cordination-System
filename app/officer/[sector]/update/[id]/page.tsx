@@ -6,7 +6,7 @@ import { getSectorConfig } from "@/lib/sectors";
 import { StatusBadge, PriorityBadge } from "@/components/StatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, AlertCircle } from "lucide-react";
+import { ArrowLeft, AlertCircle } from "@/lib/icons";
 import { formatDateTime } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -38,7 +38,7 @@ export default async function UpdateDetailPage({
       <div className="mb-6">
         <Link
           href={`/officer/${sector}`}
-          className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-4"
+          className="flex items-center gap-1 text-sm text-text-muted hover:text-text-strong mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to my updates
@@ -46,11 +46,11 @@ export default async function UpdateDetailPage({
 
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">{update.title}</h1>
+            <h1 className="text-2xl font-bold text-text-strong mb-2">{update.title}</h1>
             <div className="flex items-center gap-2 flex-wrap">
               <StatusBadge status={update.status} />
               <PriorityBadge priority={update.priority} />
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-text-muted">
                 Submitted {formatDateTime(update.submittedAt)}
               </span>
             </div>
@@ -86,7 +86,7 @@ export default async function UpdateDetailPage({
               <CardTitle className="text-base">Description</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+              <p className="text-text-default leading-relaxed whitespace-pre-wrap">
                 {update.description}
               </p>
             </CardContent>
@@ -106,10 +106,10 @@ export default async function UpdateDetailPage({
                     if (!val) return null;
                     return (
                       <div key={field.key}>
-                        <dt className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                        <dt className="text-xs font-medium text-text-muted uppercase tracking-wide">
                           {field.label}
                         </dt>
-                        <dd className="text-sm text-gray-900 mt-0.5">{val}</dd>
+                        <dd className="text-sm text-text-strong mt-0.5">{val}</dd>
                       </div>
                     );
                   })}
@@ -126,24 +126,24 @@ export default async function UpdateDetailPage({
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Location</div>
-                <div className="text-sm text-gray-900">{update.location}</div>
+                <div className="text-xs font-medium text-text-muted uppercase tracking-wide mb-1">Location</div>
+                <div className="text-sm text-text-strong">{update.location}</div>
               </div>
               <div>
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Sector</div>
-                <div className="text-sm text-gray-900 flex items-center gap-1">
+                <div className="text-xs font-medium text-text-muted uppercase tracking-wide mb-1">Sector</div>
+                <div className="text-sm text-text-strong flex items-center gap-1">
                   <span>{sectorConfig?.icon}</span>
                   <span>{update.sector.name}</span>
                 </div>
               </div>
               <div>
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Status</div>
+                <div className="text-xs font-medium text-text-muted uppercase tracking-wide mb-1">Status</div>
                 <StatusBadge status={update.status} />
               </div>
               {update.status === "approved" && update.publishedAt && (
                 <div>
-                  <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Published</div>
-                  <div className="text-sm text-green-700">{formatDateTime(update.publishedAt)}</div>
+                  <div className="text-xs font-medium text-text-muted uppercase tracking-wide mb-1">Published</div>
+                  <div className="text-sm text-secondary-700">{formatDateTime(update.publishedAt)}</div>
                 </div>
               )}
             </CardContent>

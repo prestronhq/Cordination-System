@@ -4,8 +4,9 @@ import { prisma } from "@/lib/prisma";
 import { getSectorConfig } from "@/lib/sectors";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar } from "@/lib/icons";
 import { formatDate } from "@/lib/utils";
+import { SectorIcon } from "@/components/SectorIcon";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -32,34 +33,43 @@ export default async function BulletinDetailPage({
     <div className="max-w-3xl mx-auto px-4 py-10">
       <Link
         href="/bulletin"
-        className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 mb-6"
+        className="inline-flex items-center gap-1 text-sm font-medium text-text-muted hover:text-text-strong mb-6 transition-colors"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="size-4" />
         Back to Public Bulletin
       </Link>
 
       <div className="mb-8">
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span className="text-3xl">{update.sector.icon}</span>
-          <span className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
+          <SectorIcon iconKey={update.sector.icon} className="size-10 p-2 rounded-lg" />
+          <span className="text-overline text-text-muted">
             {update.sector.name}
           </span>
           <StatusBadge status={update.status} />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-3 leading-tight">
+        <h1 className="text-display font-serif text-text-strong mb-4">
           {update.title}
         </h1>
-        <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-          <span>📍 {update.location}</span>
+        <div className="flex flex-wrap items-center gap-4 text-small text-text-muted bg-surface-2 p-3 rounded-lg border border-border-default inline-flex">
+          <span className="flex items-center gap-1.5">
+            <MapPin className="size-4 text-primary-500" />
+            {update.location}
+          </span>
           {update.publishedAt && (
-            <span>📅 Published {formatDate(update.publishedAt)}</span>
+            <>
+              <span className="text-border-strong hidden sm:block">|</span>
+              <span className="flex items-center gap-1.5">
+                <Calendar className="size-4 text-primary-500" />
+                Published {formatDate(update.publishedAt)}
+              </span>
+            </>
           )}
         </div>
       </div>
 
       <Card className="mb-6">
-        <CardContent className="p-6">
-          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap text-base">
+        <CardContent className="p-6 sm:p-8">
+          <p className="text-body text-text-strong leading-relaxed whitespace-pre-wrap">
             {update.description}
           </p>
         </CardContent>
@@ -67,20 +77,20 @@ export default async function BulletinDetailPage({
 
       {sectorConfig && Object.keys(sectorFields).length > 0 && (
         <Card>
-          <CardContent className="p-6">
-            <h2 className="font-semibold text-gray-900 mb-4 text-sm uppercase tracking-wide">
+          <CardContent className="p-6 sm:p-8">
+            <h2 className="text-overline text-text-strong mb-5">
               Additional Details
             </h2>
-            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4">
               {sectorConfig.fields.map((field) => {
                 const val = sectorFields[field.key];
                 if (!val) return null;
                 return (
-                  <div key={field.key}>
-                    <dt className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  <div key={field.key} className="bg-surface-1 p-3 rounded-md border border-border-default">
+                    <dt className="text-caption text-text-muted mb-1">
                       {field.label}
                     </dt>
-                    <dd className="text-sm text-gray-900 mt-1">{val}</dd>
+                    <dd className="text-small font-medium text-text-strong">{val}</dd>
                   </div>
                 );
               })}

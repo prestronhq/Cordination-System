@@ -1,3 +1,4 @@
+import { SectorIcon } from "@/components/SectorIcon";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { ACTIVE_SECTORS } from "@/lib/sectors";
@@ -30,8 +31,8 @@ export default async function ReviewQueuePage({
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Review Queue</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-text-strong">Review Queue</h1>
+        <p className="text-text-muted text-sm mt-1">
           {updates.length} update{updates.length !== 1 ? "s" : ""} awaiting review
         </p>
       </div>
@@ -40,14 +41,14 @@ export default async function ReviewQueuePage({
       <Card className="mb-6">
         <CardContent className="py-3 px-4">
           <div className="flex flex-wrap gap-3 items-center">
-            <span className="text-sm text-gray-600 font-medium">Filter:</span>
+            <span className="text-sm text-text-muted font-medium">Filter:</span>
             <div className="flex flex-wrap gap-2">
               <Link
                 href="/admin/review"
                 className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
                   !sectorFilter && !priorityFilter
-                    ? "bg-blue-900 text-white border-blue-900"
-                    : "bg-white text-gray-700 border-gray-300 hover:border-blue-400"
+                    ? "bg-primary-600 text-white border-primary-600"
+                    : "bg-white text-text-default border-border-strong hover:border-blue-400"
                 }`}
               >
                 All
@@ -58,11 +59,11 @@ export default async function ReviewQueuePage({
                   href={`/admin/review?sector=${s.key}`}
                   className={`text-xs px-3 py-1.5 rounded-full border transition-colors flex items-center gap-1 ${
                     sectorFilter === s.key
-                      ? "bg-blue-900 text-white border-blue-900"
-                      : "bg-white text-gray-700 border-gray-300 hover:border-blue-400"
+                      ? "bg-primary-600 text-white border-primary-600"
+                      : "bg-white text-text-default border-border-strong hover:border-blue-400"
                   }`}
                 >
-                  <span>{s.icon}</span>
+                  <SectorIcon iconKey={s.icon} className="size-4 p-0 bg-transparent text-current" />
                   {s.name}
                 </Link>
               ))}
@@ -71,7 +72,7 @@ export default async function ReviewQueuePage({
                 className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
                   priorityFilter === "high"
                     ? "bg-red-600 text-white border-red-600"
-                    : "bg-white text-gray-700 border-gray-300 hover:border-red-400"
+                    : "bg-white text-text-default border-border-strong hover:border-red-400"
                 }`}
               >
                 High Priority
@@ -84,8 +85,8 @@ export default async function ReviewQueuePage({
       {updates.length === 0 ? (
         <Card className="text-center py-16">
           <CardContent>
-            <p className="text-lg font-semibold text-gray-700 mb-2">Queue is empty</p>
-            <p className="text-gray-500 text-sm">
+            <p className="text-lg font-semibold text-text-default mb-2">Queue is empty</p>
+            <p className="text-text-muted text-sm">
               {sectorFilter
                 ? "No pending updates for this sector."
                 : "All updates have been reviewed."}
@@ -96,7 +97,7 @@ export default async function ReviewQueuePage({
         <div className="space-y-3">
           {updates.map((update) => (
             <Link key={update.id} href={`/admin/review/${update.id}`}>
-              <Card className="hover:shadow-md hover:border-blue-200 transition-all cursor-pointer">
+              <Card className="hover:shadow-md hover:border-primary-200 transition-all cursor-pointer">
                 <CardContent className="p-4">
                   <div className="flex items-start gap-4">
                     <span className="text-2xl flex-shrink-0 mt-1">{update.sector.icon}</span>
@@ -104,17 +105,17 @@ export default async function ReviewQueuePage({
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <StatusBadge status={update.status} />
                         <PriorityBadge priority={update.priority} />
-                        <span className="text-xs text-gray-500">{update.sector.name}</span>
+                        <span className="text-xs text-text-muted">{update.sector.name}</span>
                       </div>
-                      <h3 className="font-semibold text-gray-900">{update.title}</h3>
-                      <p className="text-sm text-gray-500 mt-0.5 line-clamp-2">
+                      <h3 className="font-semibold text-text-strong">{update.title}</h3>
+                      <p className="text-sm text-text-muted mt-0.5 line-clamp-2">
                         {update.description}
                       </p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-text-subtle mt-1">
                         {update.location} · Submitted {formatDateTime(update.submittedAt)}
                       </p>
                     </div>
-                    <span className="text-gray-400 text-lg flex-shrink-0">›</span>
+                    <span className="text-text-subtle text-lg flex-shrink-0">›</span>
                   </div>
                 </CardContent>
               </Card>

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { PlayCircle, Loader2 } from "lucide-react";
+import { CirclePlay, LoaderCircle } from "@/lib/icons";
 
 export function DemoScenarioButton() {
   const [running, setRunning] = useState(false);
@@ -42,9 +42,9 @@ export function DemoScenarioButton() {
       )}
       <Button variant="outline" onClick={runDemo} disabled={running} className="gap-1.5">
         {running ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
+          <LoaderCircle className="w-4 h-4 animate-spin" />
         ) : (
-          <PlayCircle className="w-4 h-4 text-green-600" />
+          <CirclePlay className="w-4 h-4 text-green-600" />
         )}
         Run Demo Scenario
       </Button>

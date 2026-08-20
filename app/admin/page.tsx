@@ -1,10 +1,11 @@
+import { SectorIcon } from "@/components/SectorIcon";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { ACTIVE_SECTORS, FUTURE_SECTORS } from "@/lib/sectors";
 import { StatusBadge, PriorityBadge } from "@/components/StatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ClipboardList, CheckCircle, Clock, AlertTriangle, PlayCircle } from "lucide-react";
+import { ClipboardList, CircleCheck, Clock, TriangleAlert, CirclePlay } from "@/lib/icons";
 import { timeAgo } from "@/lib/utils";
 import { DemoScenarioButton } from "./DemoScenarioButton";
 
@@ -59,8 +60,8 @@ export default async function AdminDashboard() {
     <div>
       <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">District Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-text-strong">District Dashboard</h1>
+          <p className="text-text-muted text-sm mt-1">
             Overview of all sector updates and pending approvals.
           </p>
         </div>
@@ -80,37 +81,37 @@ export default async function AdminDashboard() {
         <Card>
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-500">Total Updates</span>
-              <ClipboardList className="w-4 h-4 text-gray-400" />
+              <span className="text-sm text-text-muted">Total Updates</span>
+              <ClipboardList className="w-4 h-4 text-text-subtle" />
             </div>
-            <div className="text-3xl font-bold text-gray-900">{total}</div>
+            <div className="text-3xl font-bold text-text-strong">{total}</div>
           </CardContent>
         </Card>
-        <Card className="border-yellow-200 bg-yellow-50">
+        <Card className="border-warning-200 bg-warning-50">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-yellow-700">Pending Review</span>
-              <Clock className="w-4 h-4 text-yellow-500" />
+              <span className="text-sm text-warning-700">Pending Review</span>
+              <Clock className="w-4 h-4 text-warning-500" />
             </div>
-            <div className="text-3xl font-bold text-yellow-800">{pending}</div>
+            <div className="text-3xl font-bold text-warning-800">{pending}</div>
           </CardContent>
         </Card>
-        <Card className="border-green-200 bg-green-50">
+        <Card className="border-secondary-200 bg-secondary-50">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-green-700">Published</span>
-              <CheckCircle className="w-4 h-4 text-green-500" />
+              <span className="text-sm text-secondary-700">Published</span>
+              <CircleCheck className="w-4 h-4 text-green-500" />
             </div>
-            <div className="text-3xl font-bold text-green-800">{published}</div>
+            <div className="text-3xl font-bold text-secondary-800">{published}</div>
           </CardContent>
         </Card>
-        <Card className="border-blue-200 bg-blue-50">
+        <Card className="border-primary-200 bg-primary-50">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-blue-700">This Month</span>
-              <AlertTriangle className="w-4 h-4 text-blue-500" />
+              <span className="text-sm text-primary-700">This Month</span>
+              <TriangleAlert className="w-4 h-4 text-blue-500" />
             </div>
-            <div className="text-3xl font-bold text-blue-800">{thisMonth}</div>
+            <div className="text-3xl font-bold text-primary-800">{thisMonth}</div>
           </CardContent>
         </Card>
       </div>
@@ -122,31 +123,31 @@ export default async function AdminDashboard() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base">Recent Activity</CardTitle>
-                <Link href="/admin/review" className="text-sm text-blue-700 hover:underline">
+                <Link href="/admin/review" className="text-sm text-primary-700 hover:underline">
                   View all →
                 </Link>
               </div>
             </CardHeader>
             <CardContent className="p-0">
               {recent.length === 0 ? (
-                <p className="text-gray-500 text-sm text-center py-8">No updates yet.</p>
+                <p className="text-text-muted text-sm text-center py-8">No updates yet.</p>
               ) : (
                 <div className="divide-y divide-gray-100">
                   {recent.map((update) => (
                     <Link
                       key={update.id}
                       href={`/admin/review/${update.id}`}
-                      className="flex items-start gap-3 px-5 py-3.5 hover:bg-gray-50 transition-colors"
+                      className="flex items-start gap-3 px-5 py-3.5 hover:bg-surface-1 transition-colors"
                     >
-                      <span className="text-xl flex-shrink-0 mt-0.5">{update.sector.icon}</span>
+                      <SectorIcon iconKey={update.sector.icon} className="size-8 p-1.5" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-medium text-sm text-gray-900 truncate">
+                          <span className="font-medium text-sm text-text-strong truncate">
                             {update.title}
                           </span>
                           <StatusBadge status={update.status} />
                         </div>
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="text-xs text-text-muted mt-0.5">
                           {update.sector.name} · {update.location} · {timeAgo(update.submittedAt)}
                         </p>
                       </div>
@@ -168,7 +169,7 @@ export default async function AdminDashboard() {
             </CardHeader>
             <CardContent>
               {enrichedSectorCounts.length === 0 ? (
-                <p className="text-gray-500 text-sm">No pending updates.</p>
+                <p className="text-text-muted text-sm">No pending updates.</p>
               ) : (
                 <div className="space-y-2">
                   {enrichedSectorCounts
@@ -177,13 +178,13 @@ export default async function AdminDashboard() {
                       <Link
                         key={sc.sectorId}
                         href={`/admin/review?sector=${sc.sectorKey}`}
-                        className="flex items-center justify-between py-1.5 hover:text-blue-700 transition-colors"
+                        className="flex items-center justify-between py-1.5 hover:text-primary-700 transition-colors"
                       >
                         <span className="flex items-center gap-2 text-sm">
-                          <span>{sc.sectorIcon}</span>
-                          <span className="text-gray-700">{sc.sectorName}</span>
+                          <SectorIcon iconKey={sc.sectorIcon} className="size-4 p-0 bg-transparent text-current" />
+                          <span className="text-text-default">{sc.sectorName}</span>
                         </span>
-                        <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-0.5 rounded-full">
+                        <span className="bg-warning-100 text-warning-800 text-xs font-semibold px-2 py-0.5 rounded-full">
                           {sc.count}
                         </span>
                       </Link>
@@ -201,23 +202,23 @@ export default async function AdminDashboard() {
             <CardContent className="space-y-1">
               {ACTIVE_SECTORS.map((s) => (
                 <div key={s.key} className="flex items-center gap-2 py-1">
-                  <span>{s.icon}</span>
-                  <span className="text-sm text-gray-700">{s.name}</span>
-                  <span className="ml-auto text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded">
+                  <SectorIcon iconKey={s.icon} className="size-4 p-0 bg-transparent text-current" />
+                  <span className="text-sm text-text-default">{s.name}</span>
+                  <span className="ml-auto text-xs bg-secondary-100 text-secondary-700 px-1.5 py-0.5 rounded">
                     Active
                   </span>
                 </div>
               ))}
               {FUTURE_SECTORS.slice(0, 4).map((s) => (
                 <div key={s.key} className="flex items-center gap-2 py-1 opacity-50">
-                  <span>{s.icon}</span>
-                  <span className="text-sm text-gray-400">{s.name}</span>
-                  <span className="ml-auto text-xs bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded">
+                  <SectorIcon iconKey={s.icon} className="size-4 p-0 bg-transparent text-current" />
+                  <span className="text-sm text-text-subtle">{s.name}</span>
+                  <span className="ml-auto text-xs bg-surface-2 text-text-subtle px-1.5 py-0.5 rounded">
                     Coming soon
                   </span>
                 </div>
               ))}
-              <p className="text-xs text-gray-400 mt-2">
+              <p className="text-xs text-text-subtle mt-2">
                 +{FUTURE_SECTORS.length - 4} more sectors planned
               </p>
             </CardContent>

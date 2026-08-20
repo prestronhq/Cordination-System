@@ -130,8 +130,8 @@ export default async function ReportsPage({
     <div>
       <div className="flex items-start justify-between flex-wrap gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Reports</h1>
-          <p className="text-gray-500 text-sm mt-1">{range.label}</p>
+          <h1 className="text-2xl font-bold text-text-strong">Reports</h1>
+          <p className="text-text-muted text-sm mt-1">{range.label}</p>
         </div>
         <ReportExporter period={period} label={range.label} sectorStats={sectorStats} totals={totals} />
       </div>
@@ -144,8 +144,8 @@ export default async function ReportsPage({
             href={`/admin/reports?period=${p.value}`}
             className={`px-4 py-2 rounded-md text-sm font-medium border transition-colors ${
               period === p.value
-                ? "bg-blue-900 text-white border-blue-900"
-                : "bg-white text-gray-700 border-gray-300 hover:border-blue-400"
+                ? "bg-primary-600 text-white border-primary-600"
+                : "bg-white text-text-default border-border-strong hover:border-blue-400"
             }`}
           >
             {p.label}
@@ -157,25 +157,25 @@ export default async function ReportsPage({
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="text-3xl font-bold text-gray-900">{totals.total}</div>
-            <div className="text-xs text-gray-500 mt-1">Total Submissions</div>
+            <div className="text-3xl font-bold text-text-strong">{totals.total}</div>
+            <div className="text-xs text-text-muted mt-1">Total Submissions</div>
           </CardContent>
         </Card>
-        <Card className="bg-green-50 border-green-200">
+        <Card className="bg-secondary-50 border-secondary-200">
           <CardContent className="p-4 text-center">
-            <div className="text-3xl font-bold text-green-800">{totals.approved}</div>
+            <div className="text-3xl font-bold text-secondary-800">{totals.approved}</div>
             <div className="text-xs text-green-600 mt-1">Approved</div>
           </CardContent>
         </Card>
-        <Card className="bg-yellow-50 border-yellow-200">
+        <Card className="bg-warning-50 border-warning-200">
           <CardContent className="p-4 text-center">
-            <div className="text-3xl font-bold text-yellow-800">{totals.pending}</div>
+            <div className="text-3xl font-bold text-warning-800">{totals.pending}</div>
             <div className="text-xs text-yellow-600 mt-1">Pending</div>
           </CardContent>
         </Card>
-        <Card className="bg-red-50 border-red-200">
+        <Card className="bg-error-50 border-error-200">
           <CardContent className="p-4 text-center">
-            <div className="text-3xl font-bold text-red-800">{totals.rejected}</div>
+            <div className="text-3xl font-bold text-error-800">{totals.rejected}</div>
             <div className="text-xs text-red-600 mt-1">Rejected</div>
           </CardContent>
         </Card>
@@ -190,23 +190,23 @@ export default async function ReportsPage({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <tr className="border-b border-border-default bg-surface-1">
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-text-muted uppercase tracking-wide">
                     Sector
                   </th>
-                  <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <th className="text-center px-3 py-3 text-xs font-semibold text-text-muted uppercase tracking-wide">
                     Total
                   </th>
-                  <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <th className="text-center px-3 py-3 text-xs font-semibold text-text-muted uppercase tracking-wide">
                     Approved
                   </th>
-                  <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <th className="text-center px-3 py-3 text-xs font-semibold text-text-muted uppercase tracking-wide">
                     Pending
                   </th>
-                  <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <th className="text-center px-3 py-3 text-xs font-semibold text-text-muted uppercase tracking-wide">
                     Rejected
                   </th>
-                  <th className="text-center px-3 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <th className="text-center px-3 py-3 text-xs font-semibold text-text-muted uppercase tracking-wide">
                     Avg. Approval
                   </th>
                 </tr>
@@ -215,27 +215,27 @@ export default async function ReportsPage({
                 {sectorStats.map((row, i) => (
                   <tr
                     key={row.sectorKey}
-                    className={`border-b border-gray-100 ${i % 2 === 0 ? "" : "bg-gray-50/50"}`}
+                    className={`border-b border-gray-100 ${i % 2 === 0 ? "" : "bg-surface-1/50"}`}
                   >
                     <td className="px-4 py-3">
                       <span className="flex items-center gap-2">
                         <span>{row.sectorIcon}</span>
-                        <span className="font-medium text-gray-900">{row.sectorName}</span>
+                        <span className="font-medium text-text-strong">{row.sectorName}</span>
                       </span>
                     </td>
-                    <td className="text-center px-3 py-3 font-semibold text-gray-900">
+                    <td className="text-center px-3 py-3 font-semibold text-text-strong">
                       {row.total}
                     </td>
-                    <td className="text-center px-3 py-3 text-green-700 font-medium">
+                    <td className="text-center px-3 py-3 text-secondary-700 font-medium">
                       {row.approved}
                     </td>
-                    <td className="text-center px-3 py-3 text-yellow-700">
+                    <td className="text-center px-3 py-3 text-warning-700">
                       {row.pending}
                     </td>
-                    <td className="text-center px-3 py-3 text-red-700">
+                    <td className="text-center px-3 py-3 text-error-700">
                       {row.rejected}
                     </td>
-                    <td className="text-center px-3 py-3 text-gray-500">
+                    <td className="text-center px-3 py-3 text-text-muted">
                       {row.avgApprovalHours !== null
                         ? row.avgApprovalHours < 24
                           ? `${row.avgApprovalHours}h`

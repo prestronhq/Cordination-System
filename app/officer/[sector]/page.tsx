@@ -5,7 +5,7 @@ import { getSectorConfig, STATUS_LABELS } from "@/lib/sectors";
 import { StatusBadge, PriorityBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlusCircle, FileText } from "lucide-react";
+import { PlusCircle, LucideFileText } from "@/lib/icons";
 import { formatDateTime } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
@@ -43,11 +43,11 @@ export default async function OfficerDashboard({
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-2xl">{sectorConfig?.icon}</span>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-text-strong">
               {sectorConfig?.name} Sector
             </h1>
           </div>
-          <p className="text-gray-500 text-sm">Your submitted updates and their review status.</p>
+          <p className="text-text-muted text-sm">Your submitted updates and their review status.</p>
         </div>
         <Button asChild>
           <Link href={`/officer/${sector}/submit`}>
@@ -62,8 +62,8 @@ export default async function OfficerDashboard({
         {(["pending", "approved", "needs_correction", "rejected"] as const).map((status) => (
           <Card key={status} className="text-center">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-gray-900">{counts[status]}</div>
-              <div className="text-xs text-gray-500 mt-1">{STATUS_LABELS[status]}</div>
+              <div className="text-2xl font-bold text-text-strong">{counts[status]}</div>
+              <div className="text-xs text-text-muted mt-1">{STATUS_LABELS[status]}</div>
             </CardContent>
           </Card>
         ))}
@@ -73,9 +73,9 @@ export default async function OfficerDashboard({
       {updates.length === 0 ? (
         <Card className="text-center py-16">
           <CardContent>
-            <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">No updates yet</h3>
-            <p className="text-gray-500 text-sm mb-6">
+            <LucideFileText className="w-12 h-12 text-border-strong mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-text-default mb-2">No updates yet</h3>
+            <p className="text-text-muted text-sm mb-6">
               Submit your first update to get started.
             </p>
             <Button asChild>
@@ -90,7 +90,7 @@ export default async function OfficerDashboard({
         <div className="space-y-3">
           {updates.map((update) => (
             <Link key={update.id} href={`/officer/${sector}/update/${update.id}`}>
-              <Card className="hover:shadow-md hover:border-blue-200 transition-all cursor-pointer">
+              <Card className="hover:shadow-md hover:border-primary-200 transition-all cursor-pointer">
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
@@ -98,8 +98,8 @@ export default async function OfficerDashboard({
                         <StatusBadge status={update.status} />
                         <PriorityBadge priority={update.priority} />
                       </div>
-                      <h3 className="font-semibold text-gray-900 truncate">{update.title}</h3>
-                      <p className="text-sm text-gray-500 mt-0.5">
+                      <h3 className="font-semibold text-text-strong truncate">{update.title}</h3>
+                      <p className="text-sm text-text-muted mt-0.5">
                         {update.location} · Submitted {formatDateTime(update.submittedAt)}
                       </p>
                       {(update.status === "rejected" || update.status === "needs_correction") &&
@@ -109,7 +109,7 @@ export default async function OfficerDashboard({
                           </p>
                         )}
                     </div>
-                    <span className="text-gray-400 text-lg flex-shrink-0">›</span>
+                    <span className="text-text-subtle text-lg flex-shrink-0">›</span>
                   </div>
                 </CardContent>
               </Card>
